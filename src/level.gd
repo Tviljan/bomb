@@ -27,6 +27,7 @@ func _ready():
 			
 func _on_bomb_explode(bomb_location : Vector3, bomb_size : int):
 	var e = explosion.instantiate()
+	
 	e.global_position = bomb_location + Vector3.UP * .5
 	add_child(e)
 
