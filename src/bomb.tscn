@@ -2,28 +2,25 @@
 
 [ext_resource type="Script" path="res://bomb.gd" id="1_t4863"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_nn81g"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_j1xgj"]
 
 [node name="Bomb" type="StaticBody3D"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_t4863")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.428507, 0)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.428507, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.442827, 0)
-shape = SubResource("SphereShape3D_nn81g")
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.442827, 0)
+shape = SubResource("SphereShape3D_j1xgj")
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.442827, 0)
-shape = SubResource("SphereShape3D_nn81g")
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="child_exiting_tree" from="CollisionShape3D" to="." method="_on_collision_shape_3d_child_exiting_tree"]
-[connection signal="area_shape_exited" from="Area3D" to="." method="_on_area_3d_area_shape_exited"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
-[connection signal="child_exiting_tree" from="Area3D/CollisionShape3D" to="." method="_on_collision_shape_3d_child_exiting_tree"]

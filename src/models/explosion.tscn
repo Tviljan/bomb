@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch8cr2g0jdvm"]
+
+[ext_resource type="Shader" path="res://models/explosion.gdshader" id="1_purce"]
+[ext_resource type="Script" path="res://models/explosion.gd" id="2_56lc4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvwa2"]
+render_priority = 0
+shader = ExtResource("1_purce")
+shader_parameter/base_color_shadow = Color(1, 0.705882, 0.870588, 1)
+shader_parameter/base_color_highlight = Color(0.666667, 0.262745, 0.14902, 1)
+shader_parameter/base_color_blend = 1.2
+shader_parameter/color_modulate_frequency = 1.0
+shader_parameter/noise_displacement = 0.3
+shader_parameter/noise_scale = 7.0
+shader_parameter/noise_time_scale = 1.0
+shader_parameter/alpha_distance_min = 1.08
+shader_parameter/alpha_distance_max = 1.6
+shader_parameter/alpha_time_scale = 1.0
+shader_parameter/emission_intensity = 2.0
+shader_parameter/highlight_intensity = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_c4gop"]
+material = SubResource("ShaderMaterial_pvwa2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_piys4"]
+transparency = 1
+albedo_color = Color(1, 1, 0.12549, 0.282353)
+emission_enabled = true
+emission = Color(0.831373, 0.843137, 0, 1)
+emission_energy_multiplier = 2.76
+
+[node name="explosion" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_c4gop")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_piys4")
+script = ExtResource("2_56lc4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
