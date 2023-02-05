@@ -75,6 +75,16 @@ exit={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="ground"
+3d_physics/layer_1="ground"
+2d_physics/layer_5="breakable"
+3d_physics/layer_5="explode_block"
+3d_physics/layer_6="explode_destroy"
+2d_physics/layer_8="unbreakable"
+3d_physics/layer_8="unbreakable"
+
 [physics]
 
 common/physics_ticks_per_second=120

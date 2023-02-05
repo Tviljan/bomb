@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://nobpffshq4y5"]
+
+[ext_resource type="Script" path="res://random_object.gd" id="1_v3t4o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3b2q6"]
+
+[node name="CSGTorus3D" type="CSGTorus3D"]
+transform = Transform3D(0.0251381, 0.399559, 0.916363, -0.998027, 0.0627905, 0, -0.0575389, -0.914554, 0.400349, 0, 0, 0)
+use_collision = true
+collision_layer = 32
+inner_radius = 0.4
+outer_radius = 0.3
+script = ExtResource("1_v3t4o")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+use_collision = true
+collision_layer = 33
+radius = 0.2
+material = SubResource("StandardMaterial3D_3b2q6")

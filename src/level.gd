@@ -3,6 +3,7 @@ extends Node3D
 @onready var scene = preload("res://bomb.tscn")
 @onready var gridmap : GridMap = $GridMap
 @onready var explosion = preload("res://models/explosion.tscn")
+@onready var random_object = preload("res://random_object.tscn")
 @onready var breakable = preload("res://breakable.tscn")
 
 var grid_width = 16
@@ -28,7 +29,14 @@ func _ready():
 	var b = breakable.instantiate()
 	b.global_position = Vector3(10.5,1.5,10.5)
 	add_child(b)
+	var c = breakable.instantiate()
+	c.global_position = Vector3(11.5,1.5,10.5)
+	add_child(c)
 	
+	
+	var r = random_object.instantiate()
+	r.global_position = Vector3(9.5,1.5,10.5)
+	add_child(r)
 		
 			
 func _on_bomb_explode(bomb_location : Vector3, bomb_size : int):

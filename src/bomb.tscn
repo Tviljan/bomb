@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://bomb.gd" id="1_t4863"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_0o2uu"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_mrkb4"]
 
 [node name="Bomb" type="StaticBody3D"]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
@@ -15,7 +15,7 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.428507, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.442827, 0)
-shape = SubResource("SphereShape3D_0o2uu")
+shape = SubResource("SphereShape3D_mrkb4")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

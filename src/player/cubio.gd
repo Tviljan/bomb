@@ -39,6 +39,10 @@ func _physics_process(delta:float) -> void:
 #	print (global_position)
 	look_at(rotation * 90)
 
+func remove():
+	print ("I died")
+	queue_free()
+	
 func explode(explosion : StaticBody3D):
 	print ("I was caught in explosion")
 	
