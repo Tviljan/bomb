@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwh4jcdjhc47l"]
+
+[ext_resource type="Material" uid="uid://ccredqp1kwg0h" path="res://new_standard_material_3d.tres" id="1_p58ji"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_v2l3m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4gahn"]
+material = ExtResource("1_p58ji")
+subdivide_width = 4
+subdivide_height = 4
+subdivide_depth = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.484265, 0)
+material_override = SubResource("FogMaterial_v2l3m")
+mesh = SubResource("BoxMesh_4gahn")
+surface_material_override/0 = ExtResource("1_p58ji")

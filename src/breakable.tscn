@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhmwi8glcj37p"]
+
+[ext_resource type="Texture2D" uid="uid://ca40odo4nkryk" path="res://Tiles/rock-structure-wood-texture-old-cobblestone.jpg" id="1_pdsie"]
+[ext_resource type="Script" path="res://Tiles/breakable.gd" id="2_uh6ws"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gi1u"]
+albedo_texture = ExtResource("1_pdsie")
+
+[sub_resource type="BoxMesh" id="BoxMesh_iwnba"]
+material = SubResource("StandardMaterial3D_5gi1u")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p6i1m"]
+
+[node name="breakable" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_iwnba")
+script = ExtResource("2_uh6ws")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 145
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_p6i1m")

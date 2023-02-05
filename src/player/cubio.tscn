@@ -11,7 +11,7 @@ material = SubResource("StandardMaterial3D_ylsdh")
 height = 1.7
 
 [sub_resource type="CapsuleShape3D" id="5"]
-radius = 0.736195
+radius = 0.519526
 height = 1.69141
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vn0tg"]

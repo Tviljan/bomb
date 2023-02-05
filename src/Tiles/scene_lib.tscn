@@ -1,18 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bu44bry5iqcc"]
+[gd_scene load_steps=8 format=3 uid="uid://bu44bry5iqcc"]
 
+[ext_resource type="PackedScene" uid="uid://dhmwi8glcj37p" path="res://breakable.tscn" id="1_kgu22"]
 [ext_resource type="Texture2D" uid="uid://0uigl562nqgh" path="res://Tiles/brick_wall.jpg" id="1_qvrc6"]
 [ext_resource type="Script" path="res://Tiles/wall.gd" id="2_ybcnc"]
 [ext_resource type="Texture2D" uid="uid://dr727g0k46ce2" path="res://Tiles/seamles_brick_wall.jpg" id="3_8tsxv"]
-[ext_resource type="Script" path="res://Tiles/breakable.gd" id="3_iiyd6"]
-[ext_resource type="Texture2D" uid="uid://ca40odo4nkryk" path="res://Tiles/rock-structure-wood-texture-old-cobblestone.jpg" id="3_r4eub"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j17n"]
-albedo_texture = ExtResource("3_r4eub")
-
-[sub_resource type="BoxMesh" id="BoxMesh_1qkl2"]
-material = SubResource("StandardMaterial3D_3j17n")
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p7x0j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e75y5"]
 resource_name = "Material"
@@ -43,15 +34,7 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="Node3D" type="Node3D"]
 
-[node name="breakable" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.92404)
-mesh = SubResource("BoxMesh_1qkl2")
-script = ExtResource("3_iiyd6")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="breakable"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="breakable/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_p7x0j")
+[node name="breakable" parent="." instance=ExtResource("1_kgu22")]
 
 [node name="wall" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_8y3dx")
