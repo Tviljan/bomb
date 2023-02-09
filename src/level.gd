@@ -26,18 +26,18 @@ func _ready():
 		gridmap.set_cell_item(Vector3(x,1,-1),0)
 		gridmap.set_cell_item(Vector3(x,1,grid_height),0)
 		
-	var b = breakable.instantiate()
-	b.global_position = Vector3(10.5,1.5,10.5)
-	add_child(b)
-	var c = breakable.instantiate()
-	c.global_position = Vector3(11.5,1.5,10.5)
-	add_child(c)
-	
-	
+	add_breakables()
+
 	var r = random_object.instantiate()
 	r.global_position = Vector3(9.5,1.5,10.5)
 	add_child(r)
 		
+func add_breakables():
+	var locations = [Vector3(10.5,1.5,10.5),Vector3(11.5,1.5,10.5),Vector3(4.5,1.5,4.5)]
+	for i in locations:
+		var b = breakable.instantiate()
+		b.global_position =i
+		add_child(b)
 			
 func _on_bomb_explode(bomb_location : Vector3, bomb_size : int):
 	var e = explosion.instantiate()

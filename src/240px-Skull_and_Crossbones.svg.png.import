@@ -4,23 +4,22 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c21jwof0qdiqy"
 path.s3tc="res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.s3tc.ctex"
-path.etc2="res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc", "etc2"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://240px-Skull_and_Crossbones.svg.png"
-dest_files=["res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.s3tc.ctex", "res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.etc2.ctex"]
+dest_files=["res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
