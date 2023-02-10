@@ -152,9 +152,9 @@ func draw_explosion():
 		
 func check_objects_in_explosion():
 	shapecast(arr[arr_right])
-	#shapecast(arr[arr_left])
-	#shapecast(arr[arr_forward])
-	#shapecast(arr[arr_back])
+	shapecast(arr[arr_left])
+	shapecast(arr[arr_forward])
+	shapecast(arr[arr_back])
 	
 func _process(delta):
 	check_objects_in_explosion()
