@@ -6,7 +6,7 @@ extends Node3D
 # The explosion is represented by MeshInstance3D objects with a BoxMesh and a custom material. 
 # The resulting explosion can be visualized in the scene as a series of boxes.
 
-In the _ready function, the PhysicsDirectSpaceState3D is obtained and the explosion is initiated with the draw_explosion function. 
+# In the _ready function, the PhysicsDirectSpaceState3D is obtained and the explosion is initiated with the draw_explosion function. 
 # The hit_test function performs the raycast and returns the size of the explosion box at the end of the explosion. 
 # The draw_explosion function draws the explosion in four directions (left, right, forward, and backward), filling the arr array with the size of the explosion boxes in each direction. 
 # The add_explosion function creates a new MeshInstance3D object with a BoxMesh, sets its size and position, and adds it as a child of the script object. 
