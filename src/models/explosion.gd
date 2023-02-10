@@ -1,4 +1,16 @@
 extends Node3D
+# This script extends the Node3D class and implements a custom explosion effect. 
+# It uses the PhysicsDirectSpaceState3D class to perform a raycast in the given direction to check if there's an obstacle that blocks the explosion. 
+# If the raycast hits an obstacle, the explosion is stopped at the hit point. If not, the explosion continues until the specified length. 
+#
+# The explosion is represented by MeshInstance3D objects with a BoxMesh and a custom material. 
+# The resulting explosion can be visualized in the scene as a series of boxes.
+
+In the _ready function, the PhysicsDirectSpaceState3D is obtained and the explosion is initiated with the draw_explosion function. 
+# The hit_test function performs the raycast and returns the size of the explosion box at the end of the explosion. 
+# The draw_explosion function draws the explosion in four directions (left, right, forward, and backward), filling the arr array with the size of the explosion boxes in each direction. 
+# The add_explosion function creates a new MeshInstance3D object with a BoxMesh, sets its size and position, and adds it as a child of the script object. 
+# The shapecast function performs a shapecast to check for collision with other objects and removes the objects if there's a collision.
 
 var collider : PhysicsDirectSpaceState3D
 var from : Vector3 = Vector3.ZERO
