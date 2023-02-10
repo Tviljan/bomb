@@ -33,7 +33,18 @@ func _ready():
 	add_child(r)
 		
 func add_breakables():
-	var locations = [Vector3(10.5,1.5,10.5),Vector3(11.5,1.5,10.5),Vector3(4.5,1.5,4.5)]
+	var locations = [Vector3(10.5,1.5,10.5),
+		Vector3(11.5,1.5,10.5),
+		Vector3(4.5,1.5,4.5),
+		Vector3(5.5,1.5,4.5),
+		Vector3(6.5,1.5,4.5),
+		Vector3(7.5,1.5,4.5),
+		Vector3(4.5,1.5,4.5),
+		Vector3(5.5,1.5,5.5),
+		Vector3(6.5,1.5,6.5),
+		Vector3(7.5,1.5,7.5)]
+		
+		
 	for i in locations:
 		var b = breakable.instantiate()
 		b.global_position =i

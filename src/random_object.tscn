@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://nobpffshq4y5"]
+[gd_scene load_steps=4 format=3 uid="uid://nobpffshq4y5"]
 
 [ext_resource type="Script" path="res://random_object.gd" id="1_v3t4o"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6cj0"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3b2q6"]
 
-[node name="CSGTorus3D" type="CSGTorus3D"]
+[node name="Area3D" type="Area3D"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 1.86265e-09, 2.98023e-08, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_o6cj0")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
 transform = Transform3D(0.0251381, 0.399559, 0.916363, -0.998027, 0.0627905, 0, -0.0575389, -0.914554, 0.400349, 0, 0, 0)
 use_collision = true
 collision_layer = 32
@@ -12,7 +22,7 @@ inner_radius = 0.4
 outer_radius = 0.3
 script = ExtResource("1_v3t4o")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGTorus3D"]
 use_collision = true
 collision_layer = 33
 radius = 0.2
