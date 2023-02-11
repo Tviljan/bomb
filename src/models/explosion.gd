@@ -8,13 +8,13 @@ extends Node3D
 
 # In the _ready function, the PhysicsDirectSpaceState3D is obtained and the explosion is initiated with the draw_explosion function. 
 # The hit_test function performs the raycast and returns the size of the explosion box at the end of the explosion. 
-# The draw_explosion function draws the explosion in four directions (left, right, forward, and backward), filling the arr array with the size of the explosion boxes in each direction. 
+# The draw_explosion function draws the explosion in four directions (left, right, forward, and backward), filling the hit_location hit_locationay with the size of the explosion boxes in each direction. 
 # The add_explosion function creates a new MeshInstance3D object with a BoxMesh, sets its size and position, and adds it as a child of the script object. 
 # The shapecast function performs a shapecast to check for collision with other objects and removes the objects if there's a collision.
 
 var collider : PhysicsDirectSpaceState3D
 var from : Vector3 = Vector3.ZERO
-var arr = []
+var hit_location = []
 
 @onready var explosion_material = preload("res://new_standard_material_3d.tres")
 @export var explosion_size :int = 2
@@ -128,9 +128,9 @@ func _ready():
 
 	collider = get_world_3d().direct_space_state
 	from = self.global_position
-	arr = [explosion_size,explosion_size,explosion_size,explosion_size]
+	hit_location = [explosion_size,explosion_size,explosion_size,explosion_size]
 	check_explosion_size()
-#	draw_explosion()
+	draw_explosion()
 	
 #explosions until hit blocking object or end of length
 #returns box_size
@@ -158,25 +158,69 @@ func hit_test(direction : Vector3) -> Vector3:
 		print ("hit_test from  ",from)
 		print ("hit_test hit_location ",from + direction * explosion_size)
 		return add_explosion(from, from + direction * explosion_size)
+		
+func draw_explosion()->void:
+	draw_explosion_branch(hit_location[hit_location_left])
+	draw_explosion_branch(hit_location[hit_location_right]) 
+	draw_explosion_branch(hit_location[hit_location_forward])
+	draw_explosion_branch(hit_location[hit_location_back])
 
+func draw_explosion_branch(collision: Vector3)-> void:
+	var mesh_instance = MeshInstance3D.new()
+	var cube = BoxMesh.new()
+	var cube_size = Vector3.ONE
+	var direction = collision - from
+	var multiplier = 1
+	var origin = Vector3.ZERO
+	
+	if direction.x > 0:
+		print("add_explosion to RIGHT")	
+		cube_size = Vector3(direction.x , 1, 1)
+		origin = Vector3(round(direction.x /2 - .001), 0, 0)
+	elif direction.x < 0:
+		print("add_explosion to LEFT")		
+		cube_size = Vector3(-direction.x , 1, 1)
+		origin = Vector3(round(direction.x /2 + .001), 0, 0)
+	elif direction.z > 0:
+		print("add_explosion to FORWARD")		
+		cube_size = Vector3(1, 1, direction.z)
+		origin = Vector3(0, 0, direction.z/2 - .001)  
+	elif direction.z < 0:
+		print("add_explosion to BACK")			
+		cube_size = Vector3(1, 1, -direction.z)
+		origin = Vector3(0, 0, round(direction.z /2 + .001) ) 
+	# Calculate the size and position of the explosion box based on the direction of the explosion
+	
+	# Set the material of the explosion box
+	mesh_instance.material_override = explosion_material
+	cube.size = cube_size
+	mesh_instance.mesh = cube
+	
+	print("cube_size, ", cube_size)
+	print ("origin ",origin)
+	mesh_instance.global_transform.origin = origin
+	add_child(mesh_instance)
+	
 func get_explosion_end(direction : Vector3) -> Vector3:
 	
 	var to = Vector3.ZERO
+	var addition = Vector3.ZERO
 	if direction.x > 0:
 		print("RIGHT")	
 		to = Vector3(from.x + .5, from.y, from.z) + direction * explosion_size
+		addition.x += .5
 	elif direction.x < 0:
-		
-		to = Vector3(from.x - .5, from.y, from.z) + direction * explosion_size
 		print("LEFT")		
+		to = Vector3(from.x - .5, from.y, from.z) + direction * explosion_size
+		addition.x -= .5
 	elif direction.z > 0:
-		
+		print("FORWARD")	
 		to = Vector3(from.x, from.y, from.z + .5) + direction * explosion_size
-		print("FORWARD")		
+		addition.z += .5
 	elif direction.z < 0:
-		
-		to = Vector3(from.x, from.y, from.z - .5) + direction * explosion_size
 		print("BACK")		
+		to = Vector3(from.x, from.y, from.z - .5) + direction * explosion_size
+		addition.z -= .5
 	
 	var hit_dic = is_hit(from, to)
 	
@@ -187,7 +231,7 @@ func get_explosion_end(direction : Vector3) -> Vector3:
 		var hit_location = hit_dic["position"]
 		print ("hit_test from ",from)
 		print ("hit_test hit_location ",hit_location)
-		return hit_location
+		return hit_location + addition
 #		return add_explosion(from, hit_location + direction)
 	else:
 		print ("hit_test from  ",from)
@@ -195,37 +239,27 @@ func get_explosion_end(direction : Vector3) -> Vector3:
 		return to
 
 
-var arr_left = 0
-var arr_right = 1
-var arr_forward = 2
-var arr_back = 3
+var hit_location_left = 0
+var hit_location_right = 1
+var hit_location_forward = 2
+var hit_location_back = 3
 
 #Draws explosion until explosion size or blocking object is reached
-#Fills arr with boxes
+#Fills hit_location with boxes
 func check_explosion_size():
-	arr[arr_left] = get_explosion_end(Vector3.LEFT)
-	arr[arr_right] = get_explosion_end(Vector3.RIGHT) 
-	arr[arr_forward] = get_explosion_end(Vector3.FORWARD)
-	arr[arr_back] = get_explosion_end(Vector3.BACK)
-	
-func draw_explosion():
+	hit_location[hit_location_left] = get_explosion_end(Vector3.LEFT)
+	hit_location[hit_location_right] = get_explosion_end(Vector3.RIGHT) 
+	hit_location[hit_location_forward] = get_explosion_end(Vector3.FORWARD)
+	hit_location[hit_location_back] = get_explosion_end(Vector3.BACK)
 
-	arr[arr_left] = hit_test(Vector3.LEFT)
-	
-#	arr[arr_right] = hit_test(Vector3.RIGHT)
-#	arr[arr_forward] = hit_test(Vector3.FORWARD)
-#	arr[arr_back] = hit_test(Vector3.BACK)
 		
 func check_objects_in_explosion():
 	Debugger.draw_line_3d(Vector3(from.x,0,from.z), Vector3(from.x,0,from.z), Color(0,1,1))
-	Debugger.draw_line_3d(Vector3(arr[arr_left].x,0,arr[arr_left].z), Vector3(arr[arr_left].x,0,arr[arr_left].z) + Vector3.UP*3, Color(0,1,1))
-	Debugger.draw_line_3d(Vector3(arr[arr_right].x,0,arr[arr_right].z), Vector3(arr[arr_right].x,0,arr[arr_right].z) + Vector3.UP*3, Color(0,1,1))
-	Debugger.draw_line_3d(Vector3(arr[arr_forward].x,0,arr[arr_forward].z), Vector3(arr[arr_forward].x,0,arr[arr_forward].z) + Vector3.UP*3, Color(0,1,1))
-	Debugger.draw_line_3d(Vector3(arr[arr_back].x,0,arr[arr_back].z), Vector3(arr[arr_back].x,0,arr[arr_back].z) + Vector3.UP*3, Color(0,1,1))
-#	shapecast(arr[arr_left],Vector3.LEFT)
-#	shapecast(arr[arr_right], Vector3.RIGHT)
-#	shapecast(arr[arr_forward])
-#	shapecast(arr[arr_back])
+	Debugger.draw_line_3d(Vector3(hit_location[hit_location_left].x,0,hit_location[hit_location_left].z), Vector3(hit_location[hit_location_left].x,0,hit_location[hit_location_left].z) + Vector3.UP*3, Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(hit_location[hit_location_right].x,0,hit_location[hit_location_right].z), Vector3(hit_location[hit_location_right].x,0,hit_location[hit_location_right].z) + Vector3.UP*3, Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(hit_location[hit_location_forward].x,0,hit_location[hit_location_forward].z), Vector3(hit_location[hit_location_forward].x,0,hit_location[hit_location_forward].z) + Vector3.UP*3, Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(hit_location[hit_location_back].x,0,hit_location[hit_location_back].z), Vector3(hit_location[hit_location_back].x,0,hit_location[hit_location_back].z) + Vector3.UP*3, Color(0,1,1))
+
 	
 func _process(delta):
 	check_objects_in_explosion()
