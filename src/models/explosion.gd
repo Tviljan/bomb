@@ -33,34 +33,33 @@ func add_explosion(from: Vector3, to: Vector3) -> Vector3:
 	var mesh_instance = MeshInstance3D.new()
 	var cube = BoxMesh.new()
 	var cube_size = Vector3.ONE
-	var direction = from - to
+	var direction = to -from
 	var multiplier = 1
 	var origin = Vector3.ZERO
 	
+	if direction.x > 0:
+		print("add_explosion to RIGHT")	
+		cube_size = Vector3(round(direction.x) , 1, 1)
+		origin = Vector3(round(direction.x) / 2 + .5, 0, 0)
+	elif direction.x < 0:
+		print("add_explosion to LEFT")		
+		var f = round(direction.x + 0.1)
+		cube_size = Vector3(f , 1, 1)
+		origin = Vector3(round(direction.x) + 1, 0, 0)
+	elif direction.z > 0:
+		print("add_explosion to FORWARD")		
+		cube_size = Vector3(1, 1, direction.z)
+		origin = multiplier * Vector3(0, 0, abs((direction).z  / 2 + .5))
+	elif direction.z < 0:
+		print("add_explosion to BACK")			
+		multiplier = -1
+		cube_size = Vector3(1, 1, -direction.z)
+		origin = multiplier * Vector3(0, 0, abs((direction).z  / 2 + .5))
 	# Calculate the size and position of the explosion box based on the direction of the explosion
-	if from.x != to.x:
-		cube_size = Vector3(abs(from.x - to.x) + 0.5, 1, 1)
-		
-		# Set the multiplier to determine the orientation of the box
-		if from.x > to.x:
-			multiplier = -1
-		else:
-			multiplier = 1
-			
-		# Set the origin of the box based on the size and direction of the explosion
-		origin = multiplier * Vector3(abs((direction).x), 0, 0) / 2
-	else:
-		cube_size = Vector3(1, 1, abs(to.z - from.z) + 0.5)
-		
-		# Set the multiplier to determine the orientation of the box
-		if from.z > to.z:
-			multiplier = 1
-		else:
-			multiplier = -1
-		
-		# Set the origin of the box based on the size and direction of the explosion
-		origin = multiplier * Vector3(0, 0, abs((direction).z)) / 2
+
+	print ("Explosion origin: ", origin)
 	
+	print ("hit location: ", to)
 	# Set the material of the explosion box
 	mesh_instance.material_override = explosion_material
 	cube.size = cube_size
@@ -68,12 +67,13 @@ func add_explosion(from: Vector3, to: Vector3) -> Vector3:
 	
 	print(cube_size)
 	print(origin)
+#	mesh_instance.global_transform = global_transform.translated_local(v)
 	mesh_instance.global_transform.origin = origin
 	add_child(mesh_instance)
 	return cube_size
 	
 # Function for performing a shapecast using a box shape
-func shapecast(box_size: Vector3):
+func shapecast(box_size: Vector3, direction : Vector3):
 	# Create a new box shape object
 	var cube = BoxShape3D.new()
 	
@@ -84,6 +84,14 @@ func shapecast(box_size: Vector3):
 	# Print the size of the collider cube
 	print("Collider cube size:", cube_size)
 	
+	if direction == Vector3.RIGHT:
+		print("RIGHT")	
+	elif direction == Vector3.LEFT:
+		print("LEFT")		
+	elif direction == Vector3.FORWARD:
+		print("FORWARD")		
+	elif direction == Vector3.BACK:
+		print("BACK")		
 	# Create a new physics shape query object
 	var query = PhysicsShapeQueryParameters3D.new()
 #	Debugger.draw_axes(query.transform)
@@ -91,15 +99,18 @@ func shapecast(box_size: Vector3):
 	query.set_shape(cube)
 
 	# Set the transformation of the query object to the global transform translated by the given box size
-	query.transform = global_transform.translated(box_size)
+	var v =Vector3((box_size.x - .5 )/2,0,0);
+	query.transform = global_transform.translated_local(v)
 	
 	# Set the collision mask of the query object to only detect objects with a certain layer
 	query.collision_mask = 1 << 5
 	
 	# Set the margin of the query object to .9
 	query.margin = .9
-	
+	var g = query.transform.translated_local(v)
+	Debugger.draw_transformed_cube(g, Color(0,1,0))
 	# Perform the shapecast, getting up to 32 results
+	
 	var result = collider.intersect_shape(query, 32)
 	
 	# If there are any results from the shapecast
@@ -118,22 +129,70 @@ func _ready():
 	collider = get_world_3d().direct_space_state
 	from = self.global_position
 	arr = [explosion_size,explosion_size,explosion_size,explosion_size]
-	draw_explosion()
+	check_explosion_size()
+#	draw_explosion()
 	
 #explosions until hit blocking object or end of length
 #returns box_size
 func hit_test(direction : Vector3) -> Vector3:
 	var hit_dic = is_hit(from, from + direction * explosion_size)
 	
+	if direction.x > 0:
+		print("RIGHT")	
+	elif direction.x < 0:
+		print("LEFT")		
+	elif direction.z > 0:
+		print("FORWARD")		
+	elif direction.z < 0:
+		print("BACK")		
+		
 	if hit_dic: 
 
 #		Debugger.draw_line_3d(from, from + Vector3.UP, Color(1,0,0))
 #		Debugger.draw_line_3d(from + Vector3.UP, from + Vector3.UP +hit_dic["position"]+ direction, Color(1,0,0))
-		var hit_location = hit_dic["position"] + direction
-#		Debugger.draw_ray_3d(hit_location, Vector3.UP, 2, Color(1,0,0))
-		return add_explosion(from, hit_location)
+		var hit_location = hit_dic["position"]
+		print ("hit_test from ",from)
+		print ("hit_test hit_location ",hit_location)
+		return add_explosion(from, hit_location + direction)
 	else:
+		print ("hit_test from  ",from)
+		print ("hit_test hit_location ",from + direction * explosion_size)
 		return add_explosion(from, from + direction * explosion_size)
+
+func get_explosion_end(direction : Vector3) -> Vector3:
+	
+	var to = Vector3.ZERO
+	if direction.x > 0:
+		print("RIGHT")	
+		to = Vector3(from.x + .5, from.y, from.z) + direction * explosion_size
+	elif direction.x < 0:
+		
+		to = Vector3(from.x - .5, from.y, from.z) + direction * explosion_size
+		print("LEFT")		
+	elif direction.z > 0:
+		
+		to = Vector3(from.x, from.y, from.z + .5) + direction * explosion_size
+		print("FORWARD")		
+	elif direction.z < 0:
+		
+		to = Vector3(from.x, from.y, from.z - .5) + direction * explosion_size
+		print("BACK")		
+	
+	var hit_dic = is_hit(from, to)
+	
+	if hit_dic: 
+
+#		Debugger.draw_line_3d(from, from + Vector3.UP, Color(1,0,0))
+#		Debugger.draw_line_3d(from + Vector3.UP, from + Vector3.UP +hit_dic["position"]+ direction, Color(1,0,0))
+		var hit_location = hit_dic["position"]
+		print ("hit_test from ",from)
+		print ("hit_test hit_location ",hit_location)
+		return hit_location
+#		return add_explosion(from, hit_location + direction)
+	else:
+		print ("hit_test from  ",from)
+		print ("hit_test hit_location ",to)
+		return to
 
 
 var arr_left = 0
@@ -143,22 +202,34 @@ var arr_back = 3
 
 #Draws explosion until explosion size or blocking object is reached
 #Fills arr with boxes
+func check_explosion_size():
+	arr[arr_left] = get_explosion_end(Vector3.LEFT)
+	arr[arr_right] = get_explosion_end(Vector3.RIGHT) 
+	arr[arr_forward] = get_explosion_end(Vector3.FORWARD)
+	arr[arr_back] = get_explosion_end(Vector3.BACK)
+	
 func draw_explosion():
 
-	arr[arr_left] = hit_test(Vector3.RIGHT)
-	arr[arr_right] = hit_test(Vector3.LEFT)
-	arr[arr_forward] = hit_test(Vector3.FORWARD)
-	arr[arr_back] = hit_test(Vector3.BACK)
+	arr[arr_left] = hit_test(Vector3.LEFT)
+	
+#	arr[arr_right] = hit_test(Vector3.RIGHT)
+#	arr[arr_forward] = hit_test(Vector3.FORWARD)
+#	arr[arr_back] = hit_test(Vector3.BACK)
 		
 func check_objects_in_explosion():
-	shapecast(arr[arr_right])
-	shapecast(arr[arr_left])
-	shapecast(arr[arr_forward])
-	shapecast(arr[arr_back])
+	Debugger.draw_line_3d(Vector3(from.x,0,from.z), Vector3(from.x,0,from.z), Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(arr[arr_left].x,0,arr[arr_left].z), Vector3(arr[arr_left].x,0,arr[arr_left].z) + Vector3.UP*3, Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(arr[arr_right].x,0,arr[arr_right].z), Vector3(arr[arr_right].x,0,arr[arr_right].z) + Vector3.UP*3, Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(arr[arr_forward].x,0,arr[arr_forward].z), Vector3(arr[arr_forward].x,0,arr[arr_forward].z) + Vector3.UP*3, Color(0,1,1))
+	Debugger.draw_line_3d(Vector3(arr[arr_back].x,0,arr[arr_back].z), Vector3(arr[arr_back].x,0,arr[arr_back].z) + Vector3.UP*3, Color(0,1,1))
+#	shapecast(arr[arr_left],Vector3.LEFT)
+#	shapecast(arr[arr_right], Vector3.RIGHT)
+#	shapecast(arr[arr_forward])
+#	shapecast(arr[arr_back])
 	
 func _process(delta):
 	check_objects_in_explosion()
-		
+	
 func _ray_hit(ray:RayCast3D)-> bool:
 	return ray.is_colliding()
 	
