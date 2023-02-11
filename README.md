@@ -8,3 +8,6 @@
 - [ ] Add check for destroyed objects in explosion using different mask and shapecast -> Destoryed objects like players, other bombs and some tiles
 - [ ] Bombs explode when caught in explosion
 - [ ] Create random bricks
+
+
+Move around with W/A/S/D and drob bombs with space
