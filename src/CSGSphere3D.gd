@@ -1,1 +1,0 @@
-extends CSGSphere3D

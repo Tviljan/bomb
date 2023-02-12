@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://nobpffshq4y5"]
+[gd_scene load_steps=4 format=3 uid="uid://b7vkb2yj87rwn"]
 
-[ext_resource type="Script" path="res://random_object.gd" id="1_v3t4o"]
+[ext_resource type="Script" path="res://nodes/pickable/random_object.gd" id="1_v3t4o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o6cj0"]
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://desla405hba44"]
+
+[ext_resource type="Texture2D" uid="uid://ca40odo4nkryk" path="res://nodes/bricks/rock-structure-wood-texture-old-cobblestone.jpg" id="1_5qos7"]
+[ext_resource type="Script" path="res://nodes/bricks/breakable.gd" id="2_dnsr1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya2n3"]
+albedo_texture = ExtResource("1_5qos7")
+
+[node name="CSGBox3D" type="CSGBox3D"]
+use_collision = true
+collision_layer = 49
+material = SubResource("StandardMaterial3D_ya2n3")
+script = ExtResource("2_dnsr1")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1cq5ysmhxmr4"
-path.s3tc="res://.godot/imported/skull.png-cf249689766e1dff19e268afa5f14778.s3tc.ctex"
+uid="uid://dr727g0k46ce2"
+path.s3tc="res://.godot/imported/seamles_brick_wall.jpg-b5761725cbc730f8ae4eff584dbbbfd5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://skull.png"
-dest_files=["res://.godot/imported/skull.png-cf249689766e1dff19e268afa5f14778.s3tc.ctex"]
+source_file="res://nodes/bricks/seamles_brick_wall.jpg"
+dest_files=["res://.godot/imported/seamles_brick_wall.jpg-b5761725cbc730f8ae4eff584dbbbfd5.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

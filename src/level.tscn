@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cbvuesb1ptdh4" path="res://player/cubio.tscn" id="2"]
 [ext_resource type="Environment" uid="uid://bupmwdx23k178" path="res://default_env.tres" id="3_scanf"]
-[ext_resource type="MeshLibrary" uid="uid://dxbbnkvhpbx2j" path="res://cubelib.meshlib" id="4_me2fj"]
+[ext_resource type="MeshLibrary" uid="uid://ct4cdiw7exkpn" path="res://meshlib.meshlib" id="4_r1scj"]
 [ext_resource type="Script" path="res://level.gd" id="6"]
 
 [node name="World3D" type="Node3D"]
@@ -33,5 +33,9 @@ floor_max_angle = 0.5044
 transform = Transform3D(0.999647, 0.00412427, 0.0262381, -0.0250578, 0.473984, 0.880177, -0.00880633, -0.880524, 0.47392, 8.42932, 9.77286, 11.7792)
 
 [node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("4_me2fj")
+mesh_library = ExtResource("4_r1scj")
 cell_size = Vector3(1, 1, 1)
+collision_layer = 145
+data = {
+"cells": PackedInt32Array(0, 0, 1, 1, 0, 1, 2, 0, 0, 1, 1, 0, 0, 1, 0, 65535, 0, 0, 0, 65535, 0, 0, 65534, 0, 1, 65534, 0, 1, 65535, 0)
+}

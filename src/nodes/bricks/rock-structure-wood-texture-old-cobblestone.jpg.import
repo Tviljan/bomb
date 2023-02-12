@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c21jwof0qdiqy"
-path.s3tc="res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.s3tc.ctex"
+uid="uid://ca40odo4nkryk"
+path.s3tc="res://.godot/imported/rock-structure-wood-texture-old-cobblestone.jpg-cb6dc8a798facfc042b8d0ef02401779.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://240px-Skull_and_Crossbones.svg.png"
-dest_files=["res://.godot/imported/240px-Skull_and_Crossbones.svg.png-d52ad8c6f036df696edbe66e38b24dea.s3tc.ctex"]
+source_file="res://nodes/bricks/rock-structure-wood-texture-old-cobblestone.jpg"
+dest_files=["res://.godot/imported/rock-structure-wood-texture-old-cobblestone.jpg-cb6dc8a798facfc042b8d0ef02401779.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

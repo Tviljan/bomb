@@ -1,11 +1,11 @@
 extends Node3D
 
-@onready var scene = preload("res://bomb.tscn")
+@onready var scene = preload("res://nodes/bomb/bomb.tscn")
 @onready var gridmap : GridMap = $GridMap
-@onready var explosion = preload("res://models/explosion.tscn")
-@onready var random_object = preload("res://random_object.tscn")
-@onready var breakable = preload("res://breakable.tscn")
-
+@onready var explosion = preload("res://nodes/explosion/explosion.tscn")
+@onready var random_object = preload("res://nodes/pickable/random_object.tscn")
+@onready var breakable = preload("res://nodes/bricks/breakable.tscn")
+  
 var grid_width = 16
 var grid_height = 12
 

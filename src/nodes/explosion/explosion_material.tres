@@ -1,0 +1,26 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3]
+
+[ext_resource type="Texture2D" uid="uid://c21jwof0qdiqy" path="res://nodes/bomb/240px-Skull_and_Crossbones.svg.png" id="1_70xjk"]
+[ext_resource type="Texture2D" uid="uid://b1cq5ysmhxmr4" path="res://nodes/bomb/skull.png" id="2_q0o1d"]
+
+[resource]
+transparency = 1
+albedo_color = Color(1, 1, 0, 0.721569)
+normal_scale = 16.0
+normal_texture = ExtResource("2_q0o1d")
+ao_texture = ExtResource("1_70xjk")
+ao_on_uv2 = true
+ao_texture_channel = 3
+heightmap_scale = 1.206
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("1_70xjk")
+refraction_scale = 0.45
+refraction_texture = ExtResource("2_q0o1d")
+refraction_texture_channel = 3
+detail_mask = ExtResource("2_q0o1d")
+detail_blend_mode = 1
+grow_amount = 1.32
+point_size = 125.4
+use_particle_trails = true

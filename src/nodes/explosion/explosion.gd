@@ -17,7 +17,7 @@ var hit_location_right = 1
 var hit_location_forward = 2
 var hit_location_back = 3
 
-@onready var explosion_material = preload("res://new_standard_material_3d.tres")
+@onready var explosion_material = preload("res://nodes/explosion/explosion_material.tres")
 @export var explosion_size :int = 2
 
 ##Function for setting the cast length

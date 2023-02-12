@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0uigl562nqgh"
-path.s3tc="res://.godot/imported/brick_wall.jpg-2a77f9dd5e1f57d5a288dec7a2bf30cb.s3tc.ctex"
+uid="uid://b1cq5ysmhxmr4"
+path.s3tc="res://.godot/imported/skull.png-dc4be99814be791dd9107d2cb7a8ac3c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Tiles/brick_wall.jpg"
-dest_files=["res://.godot/imported/brick_wall.jpg-2a77f9dd5e1f57d5a288dec7a2bf30cb.s3tc.ctex"]
+source_file="res://nodes/bomb/skull.png"
+dest_files=["res://.godot/imported/skull.png-dc4be99814be791dd9107d2cb7a8ac3c.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

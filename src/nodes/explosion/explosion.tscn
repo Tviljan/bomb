@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch8cr2g0jdvm"]
+[gd_scene load_steps=2 format=3 uid="uid://dn2kemf22vbdv"]
 
-[ext_resource type="Script" path="res://models/explosion.gd" id="2_56lc4"]
+[ext_resource type="Script" path="res://nodes/explosion/explosion.gd" id="1_y2mv5"]
 
 [node name="explosion" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("2_56lc4")
+script = ExtResource("1_y2mv5")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.2

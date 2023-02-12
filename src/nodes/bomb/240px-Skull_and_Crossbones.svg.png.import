@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr727g0k46ce2"
-path.s3tc="res://.godot/imported/seamles_brick_wall.jpg-46f60d6aa41f7f141b4a710e0a3f981e.s3tc.ctex"
+uid="uid://c21jwof0qdiqy"
+path.s3tc="res://.godot/imported/240px-Skull_and_Crossbones.svg.png-9102f72d8c583cb877bda4329d4a06f8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Tiles/seamles_brick_wall.jpg"
-dest_files=["res://.godot/imported/seamles_brick_wall.jpg-46f60d6aa41f7f141b4a710e0a3f981e.s3tc.ctex"]
+source_file="res://nodes/bomb/240px-Skull_and_Crossbones.svg.png"
+dest_files=["res://.godot/imported/240px-Skull_and_Crossbones.svg.png-9102f72d8c583cb877bda4329d4a06f8.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
