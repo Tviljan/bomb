@@ -14,3 +14,11 @@ func _explode():
 func remove():
 	$Timer.stop()
 	_explode()
+
+
+func _on_collision_shape_3d_child_exiting_tree(node):
+	print ("exit") # Replace with function body.
+
+
+func _on_area_3d_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	body.remove_collision_exception_with(self)
