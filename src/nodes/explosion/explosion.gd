@@ -65,22 +65,18 @@ func draw_explosion_cube(collision: Vector3)-> void:
 	var key = -1
 	
 	if direction.x > 0:
-		print("add_explosion to RIGHT")	
 		cube_size = Vector3(direction.x , 1, 1)
 		origin = Vector3(round(direction.x /2 - .001), 0, 0)
 		key = hit_location_right
 	elif direction.x < 0:
-		print("add_explosion to LEFT")		
 		cube_size = Vector3(-direction.x , 1, 1)
 		origin = Vector3(round(direction.x /2 + .001), 0, 0)
 		key = hit_location_left
 	elif direction.z > 0:
-		print("add_explosion to FORWARD")		
 		cube_size = Vector3(1, 1, direction.z)
 		origin = Vector3(0, 0, round(direction.z/2 - .001))  
 		key = hit_location_forward
-	elif direction.z < 0:
-		print("add_explosion to BACK")			
+	elif direction.z < 0:	
 		cube_size = Vector3(1, 1, -direction.z)
 		origin = Vector3(0, 0, round(direction.z /2 + .001) ) 
 		key = hit_location_back
@@ -91,8 +87,6 @@ func draw_explosion_cube(collision: Vector3)-> void:
 	mesh_instance.mesh = cube
 	hit_box[key] = cube_size
 	hit_origin[key] = origin
-	print("cube_size, ", cube_size)
-	print ("origin ",origin)
 	mesh_instance.global_transform.origin = origin
 	add_child(mesh_instance)
 
@@ -111,21 +105,13 @@ func destroy_cast(origin : Vector3, box_size: Vector3, direction : Vector3):
 	var explosion_addition = .75
 	
 	# Print the size of the collider cube
-	print("Collider cube size:", box_size)
 	if direction.x > 0:
-		print("destroy_cast to RIGHT")	
 		cube.size = Vector3(box_size.x + explosion_addition, 1, box_size.z +cube_padding)
-
 	elif direction.x < 0:
-		print("destroy_cast to LEFT")		
 		cube.size = Vector3(box_size.x  + explosion_addition, 1, box_size.z +cube_padding)
-
-	elif direction.z > 0:
-		print("destroy_cast to FORWARD")		
+	elif direction.z > 0:	
 		cube.size = Vector3(box_size.x + cube_padding, 1, box_size.z + explosion_addition)
-
-	elif direction.z < 0:
-		print("destroy_cast to BACK")			
+	elif direction.z < 0:		
 		cube.size = Vector3(box_size.x +cube_padding, 1, box_size.z + explosion_addition)
 	# Create a new physics shape query object
 	var query = PhysicsShapeQueryParameters3D.new()
@@ -165,28 +151,20 @@ func get_explosion_end(direction : Vector3) -> Vector3:
 	var to = Vector3.ZERO
 	var addition = Vector3.ZERO
 	if direction.x > 0:
-		print("RIGHT")	
 		to = Vector3(from.x + .5, from.y, from.z) + direction * explosion_size
 	elif direction.x < 0:
-		print("LEFT")		
 		to = Vector3(from.x - .5, from.y, from.z) + direction * explosion_size
 	elif direction.z > 0:
-		print("FORWARD")	
 		to = Vector3(from.x, from.y, from.z + .5) + direction * explosion_size
-	elif direction.z < 0:
-		print("BACK")		
+	elif direction.z < 0:	
 		to = Vector3(from.x, from.y, from.z - .5) + direction * explosion_size
 	
 	var hit_dic = is_hit(from, to)
 	
 	if hit_dic: 
 		var hit_location = hit_dic["position"]
-		print ("hit_test from ",from)
-		print ("hit_test hit_location ",hit_location)
 		return hit_location + addition
 	else:
-		print ("hit_test from  ",from)
-		print ("hit_test hit_location ",to)
 		return to
 
 ##Function for checking if objects are in explosion

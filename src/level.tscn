@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://y0rsox5qdoci"]
+[gd_scene load_steps=4 format=3 uid="uid://y0rsox5qdoci"]
 
-[ext_resource type="PackedScene" uid="uid://cbvuesb1ptdh4" path="res://player/cubio.tscn" id="2"]
 [ext_resource type="Environment" uid="uid://bupmwdx23k178" path="res://default_env.tres" id="3_scanf"]
 [ext_resource type="MeshLibrary" uid="uid://ct4cdiw7exkpn" path="res://meshlib.meshlib" id="4_r1scj"]
 [ext_resource type="Script" path="res://level.gd" id="6"]
@@ -22,12 +21,6 @@ directional_shadow_split_2 = 0.1
 directional_shadow_split_3 = 0.2
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 24.0
-
-[node name="Cubio" parent="." instance=ExtResource("2")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 5, 1.652, 5)
-input_ray_pickable = false
-slide_on_ceiling = false
-floor_max_angle = 0.5044
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.999647, 0.00412427, 0.0262381, -0.0250578, 0.473984, 0.880177, -0.00880633, -0.880524, 0.47392, 8.42932, 9.77286, 11.7792)
