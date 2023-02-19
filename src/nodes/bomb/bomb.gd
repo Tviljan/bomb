@@ -11,3 +11,6 @@ func _explode():
 	on_explode.emit(self.global_position, explosion_size)
 	queue_free()
 	
+func remove():
+	$Timer.stop()
+	_explode()
