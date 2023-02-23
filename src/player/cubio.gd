@@ -11,12 +11,14 @@ signal drop_bomb
 var dir : Vector3 = Vector3.ZERO
 var angle : float
 func _physics_process(delta:float) -> void:
+	rotation_degrees = Vector3.UP
+	
 	if (not on_ground()):
 		velocity.y  = -1
 		velocity = velocity * delta * moveSpeed
 		move_and_slide()
 		pass
-		
+	
 	# Input
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1

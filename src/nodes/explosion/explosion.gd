@@ -152,8 +152,16 @@ func destroy_cast(origin : Vector3, box_size: Vector3, direction : Vector3):
 			# Draw a line from the object's global position to its global position plus Vector3.UP
 			# The color of the line is set to a shade of pink (Color(1,0,1))
 			Debugger.draw_box(object["collider"].global_position, Vector3(1,2,1))
+			
 			Debugger.draw_line_3d(object["collider"].global_position, object["collider"].global_position + Vector3.UP * 5, Color(1,0,1))
-			object["collider"].remove()
+			var o = object["collider"].get_owner()
+			if o:
+		
+				
+				o.remove()
+			else:
+				object["collider"].remove()
+						
 
 
 ##Function for calculating the explosion size to given direction using explosion_size variable
