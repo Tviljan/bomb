@@ -5,7 +5,7 @@ extends Node3D
 
 @onready var gridmap : GridMap = $GridMap
 @onready var explosion = preload("res://nodes/explosion/explosion.tscn")
-@onready var random_object = preload("res://nodes/pickable/random_object.tscn")
+@onready var random_object = preload("res://nodes/pickable/bigger_explosion.tscn")
 @onready var breakable = preload("res://nodes/bricks/breakable.tscn")
 
 @onready var camera : Camera3D = $Camera3D
@@ -14,7 +14,12 @@ var grid_width = 16
 var grid_height = 12
 
 var _tile_offset = Vector3(.5,0,.5)
+func _process(delta: float) -> void:
 
+	var mouse_pos = camera.project_ray_origin(get_viewport().get_mouse_position())
+
+	var mouse_dir = camera.project_ray_normal(get_viewport().get_mouse_position())
+	
 func _ready():
 	var player = player_scene.instantiate() as CharacterBody3D
 	player.global_position = Vector3(2,1.5,2)
@@ -35,22 +40,68 @@ func _ready():
 	for x in range(0,grid_width):
 		gridmap.set_cell_item(Vector3(x,1,-1),0)
 		gridmap.set_cell_item(Vector3(x,1,grid_height),0)
-		
-	add_breakables()
+	
+	add_starting_position()
 	add_unbreakables()
-	var r = random_object.instantiate()
-	r.global_position = Vector3(9.5,1.5,10.5)
-	add_child(r)
+	add_breakables()
+	add_pickables()
 
+func add_pickables():
+	var c: int = 0
+	var max = 0
+	while c < 10:
+		var w = randi() % grid_width
+		var h = randi() % grid_height
+		if gridmap.get_cell_item(Vector3(w,1,h)) == -1:
+			var v = Vector3(w+.5,1.5,h+.5)
+			print ("add object ", v)
+			var r = random_object.instantiate()
+			r.global_position = v
+			add_child(r)
+			c = c + 1
+		else:
+			max = max + 1
+			if max > 100:
+				continue
+			
+			print ("blocked")
+
+func add_starting_position():
+	
+	#Left corner
+#	gridmap.set_cell_item(Vector3(0,1,0),3)
+	gridmap.set_cell_item(Vector3(1,1,0),3)
+#	gridmap.set_cell_item(Vector3(2,1,0),3)
+
+	gridmap.set_cell_item(Vector3(0,1,1),3)
+	gridmap.set_cell_item(Vector3(1,1,1),3)
+	gridmap.set_cell_item(Vector3(2,1,1),3)
+	
+#	gridmap.set_cell_item(Vector3(0,1,2),3)
+	gridmap.set_cell_item(Vector3(1,1,2),3)
+#	gridmap.set_cell_item(Vector3(2,1,2),3)
+				
 func add_unbreakables():
 	
 	for h in range(1,grid_height):		
 		for w in range(1,grid_width):
 			if fmod(h, 2) == 0 and fmod(w,2) == 0:
-				gridmap.set_cell_item(Vector3(w,1,h),1)
+				if gridmap.get_cell_item(Vector3(w,1,h)) == -1:
+					gridmap.set_cell_item(Vector3(w,1,h),1)
 				
-			
 func add_breakables():
+	for h in range(0,grid_height):		
+		for w in range(0,grid_width):
+			if gridmap.get_cell_item(Vector3(w,1,h)) == -1:
+				var b = breakable.instantiate()
+				b.global_position =Vector3(w,1.5,h) +_tile_offset
+				add_child(b)
+			else:
+				print ("blocked add_breakables")
+				
+
+	
+func add_preset_breakables():
 	var locations = [
 		Vector3(2,1.5,4),
 		Vector3(3,1.5,4),
@@ -66,7 +117,7 @@ func add_breakables():
 		Vector3(13,1.5,4),
 		Vector3(14,1.5,4),
 		Vector3(15,1.5,4),
-		
+
 		Vector3(2,1.5,6),
 		Vector3(3,1.5,6),
 		Vector3(4,1.5,6),
@@ -81,8 +132,8 @@ func add_breakables():
 		Vector3(13,1.5,6),
 		Vector3(14,1.5,6),
 		Vector3(15,1.5,6)]
-		
-		
+
+
 	for i in locations:
 		var b = breakable.instantiate()
 		b.global_position =i + _tile_offset

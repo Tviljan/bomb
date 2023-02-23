@@ -63,5 +63,13 @@ func _on_area_3d_area_entered(area):
 	print ("area entered")
 	if area.is_in_group("pickable"):
 		print ("pickable")
-		area.get_parent().picked(self)
-		area.get_parent().remove() # Replace with function body.
+		var root_node = get_tree().get_root()
+		var owner_node = area.get_owner()
+#		var owner_scene = owner_node.get_tree().get_current_scene()
+#		print("The owner node of the Area3D node is: ", owner_node)
+#		print("The owner node's scene is: ", owner_scene)
+#		var g = area.get_node("parent")
+#		var b = area.get_node("parent")
+#		var d = area.get_tree()
+		owner_node.picked(self)
+		owner_node.remove() # Replace with function body.

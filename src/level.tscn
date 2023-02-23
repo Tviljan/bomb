@@ -32,3 +32,9 @@ collision_layer = 145
 data = {
 "cells": PackedInt32Array(0, 0, 1, 1, 0, 1, 2, 0, 0, 1, 1, 0, 0, 1, 0, 65535, 0, 0, 0, 65535, 0, 0, 65534, 0, 1, 65534, 0, 1, 65535, 0)
 }
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="PickableTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true

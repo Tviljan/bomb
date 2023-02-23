@@ -112,8 +112,8 @@ func destroy_cast(origin : Vector3, box_size: Vector3, direction : Vector3):
 	var cube = BoxShape3D.new()
 	
 	# Set the size of the box shape to the given size	
-	var cube_padding = 0#-.6
-	var explosion_addition = 0
+	var cube_padding = -.6
+	var explosion_addition = .5
 	
 	# Print the size of the collider cube
 	if direction.x > 0:
