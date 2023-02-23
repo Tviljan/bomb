@@ -8,7 +8,8 @@ extends Node3D
 @onready var random_object = preload("res://nodes/pickable/random_object.tscn")
 @onready var breakable = preload("res://nodes/bricks/breakable.tscn")
 
-  
+@onready var camera : Camera3D = $Camera3D
+
 var grid_width = 16
 var grid_height = 12
 

@@ -59,10 +59,6 @@ func on_ground():
 	if shape_cast.is_colliding():
 		return true
 
-func _on_tcube_body_entered(body):
-	if body == self:
-		get_node(^"WinText").show()
-
 func _on_area_3d_area_entered(area):
 	print ("area entered")
 	if area.is_in_group("pickable"):
