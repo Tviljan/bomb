@@ -63,22 +63,33 @@ func draw_explosion_cube(collision: Vector3)-> void:
 	var origin = Vector3.ZERO
 	
 	var key = -1
-	
+	var addition = .5
 	if direction.x > 0:
-		cube_size = Vector3(direction.x , 1, 1)
-		origin = Vector3(round(direction.x /2 - .001), 0, 0)
+		direction.x += addition
+		cube_size = Vector3(direction.x, 1, 1)
+#		origin = Vector3(round(direction.x /2 - .001), 0, 0)
+		origin = Vector3(direction.x /2, 0, 0)
 		key = hit_location_right
 	elif direction.x < 0:
+		direction.x -= addition
 		cube_size = Vector3(-direction.x , 1, 1)
-		origin = Vector3(round(direction.x /2 + .001), 0, 0)
+#		origin = Vector3(round(direction.x /2 + .001), 0, 0)
+		origin = Vector3(direction.x /2, 0, 0)
 		key = hit_location_left
 	elif direction.z > 0:
+		
+		direction.z += addition
 		cube_size = Vector3(1, 1, direction.z)
-		origin = Vector3(0, 0, round(direction.z/2 - .001))  
+#		origin = Vector3(0, 0, round(direction.z/2 - .001))  
+		
+		origin = Vector3(0, 0, direction.z/2)  
 		key = hit_location_forward
 	elif direction.z < 0:	
+		direction.z -= addition
 		cube_size = Vector3(1, 1, -direction.z)
-		origin = Vector3(0, 0, round(direction.z /2 + .001) ) 
+#		origin = Vector3(0, 0, round(direction.z /2 + .001) ) 
+		
+		origin = Vector3(0, 0, direction.z /2) 
 		key = hit_location_back
 	
 	# Set the material of the explosion box
@@ -101,8 +112,8 @@ func destroy_cast(origin : Vector3, box_size: Vector3, direction : Vector3):
 	var cube = BoxShape3D.new()
 	
 	# Set the size of the box shape to the given size	
-	var cube_padding = -.6
-	var explosion_addition = .75
+	var cube_padding = 0#-.6
+	var explosion_addition = 0
 	
 	# Print the size of the collider cube
 	if direction.x > 0:
@@ -150,14 +161,15 @@ func get_explosion_end(direction : Vector3) -> Vector3:
 	
 	var to = Vector3.ZERO
 	var addition = Vector3.ZERO
-	if direction.x > 0:
-		to = Vector3(from.x + .5, from.y, from.z) + direction * explosion_size
-	elif direction.x < 0:
-		to = Vector3(from.x - .5, from.y, from.z) + direction * explosion_size
-	elif direction.z > 0:
-		to = Vector3(from.x, from.y, from.z + .5) + direction * explosion_size
-	elif direction.z < 0:	
-		to = Vector3(from.x, from.y, from.z - .5) + direction * explosion_size
+	var from_addition = 0#.5
+#	if direction.x > 0:
+#		to = Vector3(from.x + from_addition, from.y, from.z) + direction * explosion_size
+#	elif direction.x < 0:
+#		to = Vector3(from.x - from_addition, from.y, from.z) + direction * explosion_size
+#	elif direction.z > 0:
+#		to = Vector3(from.x, from.y, from.z + from_addition) + direction * explosion_size
+#	elif direction.z < 0:	
+	to = Vector3(from.x, from.y, from.z - from_addition) + direction * explosion_size 
 	
 	var hit_dic = is_hit(from, to)
 	

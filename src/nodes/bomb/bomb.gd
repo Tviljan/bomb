@@ -8,6 +8,7 @@ func _ready():
 	$Timer.connect("timeout", _explode)
 
 func _explode():
+	print ("create boom size of ", explosion_size)
 	on_explode.emit(self.global_position, explosion_size)
 	queue_free()
 	

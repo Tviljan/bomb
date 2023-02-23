@@ -50,8 +50,7 @@ func add_unbreakables():
 				
 			
 func add_breakables():
-	var locations = [Vector3(0,1.5,4),
-		Vector3(1,1.5,4),
+	var locations = [
 		Vector3(2,1.5,4),
 		Vector3(3,1.5,4),
 		Vector3(4,1.5,4),
@@ -66,8 +65,7 @@ func add_breakables():
 		Vector3(13,1.5,4),
 		Vector3(14,1.5,4),
 		Vector3(15,1.5,4),
-		Vector3(0,1.5,6),
-		Vector3(1,1.5,6),
+		
 		Vector3(2,1.5,6),
 		Vector3(3,1.5,6),
 		Vector3(4,1.5,6),
@@ -105,7 +103,7 @@ func _on_player_drop_bomb(player : CharacterBody3D):
 		var hovered_point = gridmap.local_to_map(collision)
 		var hovered_tile = gridmap.get_cell_item(hovered_point)
 		var instance = bomb.instantiate()
-		
+		instance.explosion_size = player.current_bomb_size
 		instance.connect("on_explode", _on_bomb_explode)
 		instance.global_position = Vector3(hovered_point.x + 0.5, hovered_point.y, hovered_point.z + 0.5)
 

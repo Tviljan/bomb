@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var shape_cast = $ShapeCast3D
 #@onready var camera = $Target/Camera3D
 @onready var start_position = position
-
+@export var current_bomb_size := 1
 
 var moveSpeed := 100.0
 signal drop_bomb
@@ -63,3 +63,9 @@ func _on_tcube_body_entered(body):
 	if body == self:
 		get_node(^"WinText").show()
 
+func _on_area_3d_area_entered(area):
+	print ("area entered")
+	if area.is_in_group("pickable"):
+		print ("pickable")
+		area.get_parent().picked(self)
+		area.get_parent().remove() # Replace with function body.

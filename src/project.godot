@@ -89,6 +89,7 @@ exit={
 2d_physics/layer_5="breakable"
 3d_physics/layer_5="explode_block"
 3d_physics/layer_6="explode_destroy"
+3d_physics/layer_7="pickable"
 2d_physics/layer_8="unbreakable"
 3d_physics/layer_8="unbreakable"
 
