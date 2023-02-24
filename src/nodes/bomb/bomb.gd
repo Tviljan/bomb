@@ -6,7 +6,13 @@ signal on_explode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Timer.connect("timeout", _explode)
-
+	var tween = create_tween()
+	var scale = Vector3(.9,.9,.9)
+	var f =randf_range(0.2,0.5)
+	tween.tween_property(self, "scale", scale, .5)
+	tween.tween_property(self, "scale", Vector3.ONE, .5)
+	tween.set_loops(10)
+	
 func _explode():
 	print ("create boom size of ", explosion_size)
 	on_explode.emit(self.global_position, explosion_size)

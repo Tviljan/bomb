@@ -61,32 +61,33 @@ func draw_explosion_cube(collision: Vector3)-> void:
 	var direction = collision - from
 	var multiplier = 1
 	var origin = Vector3.ZERO
-	
+	var cube_width = .5
+	var cube_height = .5
 	var key = -1
-	var addition = .5
+	var addition = 0
 	if direction.x > 0:
 		direction.x += addition
-		cube_size = Vector3(direction.x, 1, 1)
+		cube_size = Vector3(direction.x, cube_height, cube_width)
 #		origin = Vector3(round(direction.x /2 - .001), 0, 0)
 		origin = Vector3(direction.x /2, 0, 0)
 		key = hit_location_right
 	elif direction.x < 0:
 		direction.x -= addition
-		cube_size = Vector3(-direction.x , 1, 1)
+		cube_size = Vector3(-direction.x , cube_height, cube_width)
 #		origin = Vector3(round(direction.x /2 + .001), 0, 0)
 		origin = Vector3(direction.x /2, 0, 0)
 		key = hit_location_left
 	elif direction.z > 0:
 		
 		direction.z += addition
-		cube_size = Vector3(1, 1, direction.z)
+		cube_size = Vector3(cube_width, cube_height, direction.z)
 #		origin = Vector3(0, 0, round(direction.z/2 - .001))  
 		
 		origin = Vector3(0, 0, direction.z/2)  
 		key = hit_location_forward
 	elif direction.z < 0:	
 		direction.z -= addition
-		cube_size = Vector3(1, 1, -direction.z)
+		cube_size = Vector3(cube_width, cube_height, -direction.z)
 #		origin = Vector3(0, 0, round(direction.z /2 + .001) ) 
 		
 		origin = Vector3(0, 0, direction.z /2) 

@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=3 format=3]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dhgh3inlk1agj"]
 
 [ext_resource type="Texture2D" uid="uid://c21jwof0qdiqy" path="res://nodes/bomb/240px-Skull_and_Crossbones.svg.png" id="1_70xjk"]
 [ext_resource type="Texture2D" uid="uid://b1cq5ysmhxmr4" path="res://nodes/bomb/skull.png" id="2_q0o1d"]
@@ -23,4 +23,3 @@ detail_mask = ExtResource("2_q0o1d")
 detail_blend_mode = 1
 grow_amount = 1.32
 point_size = 125.4
-use_particle_trails = true
