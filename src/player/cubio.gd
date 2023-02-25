@@ -7,11 +7,34 @@ extends CharacterBody3D
 @export var bomb_time_seconds := 2.0
 @export var bombs := 1
 
+@export var move_right_action := "move_right"
+@export var move_left_action := "move_left"
+@export var move_forward_action := "move_forward"
+@export var move_back_action := "move_back"
+@export var drop_bomb_action := "jump"
+
 var moveSpeed := 100.0
 signal drop_bomb
 
+signal leave
+var player: int
+var input
+
 var dir : Vector3 = Vector3.ZERO
 var angle : float
+# call this function when spawning this player to set up the input object based on the device
+func init(player_num: int, device: int):
+	player = player_num
+	
+	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
+	# but for simplicity, it's not an autoload in this demo.
+	# but I recommend making it a singleton so you can access the player data from anywhere.
+	# that would look like the following line, instead of the device function parameter above.
+	# var device = PlayerManager.get_player_device(player)
+	input = DeviceInput.new(device)
+	
+	#$Player.text = "%s" % player_num
+
 
 var active_bombs = 0
 func _physics_process(delta:float) -> void:
@@ -22,23 +45,24 @@ func _physics_process(delta:float) -> void:
 		velocity = velocity * delta * moveSpeed
 		move_and_slide()
 		pass
-	
+		
 	# Input
-	if Input.is_action_pressed("move_right"):
+	if input.is_action_pressed(move_right_action):
 		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
+	if input.is_action_pressed(move_left_action):
 		velocity.x -= 1
-	if Input.is_action_pressed("move_forward"):
+	if input.is_action_pressed(move_forward_action):
 		velocity.z -= 1
-	if Input.is_action_pressed("move_back"):
+	if input.is_action_pressed(move_back_action):
 		velocity.z += 1
 		
 	velocity = velocity * delta * moveSpeed
 	
 	# move the character
 	move_and_slide()
-	if Input.is_action_just_released("jump") and active_bombs < bombs:
+	if input.is_action_just_released(drop_bomb_action) and active_bombs < bombs:
 		active_bombs += 1
+		print ("drop bomb %s out of %s ", active_bombs, bombs)
 		get_tree().create_timer(bomb_time_seconds).timeout.connect(bomb_explode_timer)
 		drop_bomb.emit(self)
 		
@@ -46,6 +70,7 @@ func _physics_process(delta:float) -> void:
 	var rotation = velocity.normalized()
 #	print (global_position)
 	look_at(rotation * 90)
+	
 func bomb_explode_timer():
 	active_bombs -= 1
 	
