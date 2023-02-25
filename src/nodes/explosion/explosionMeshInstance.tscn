@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqotenkk0q7pq"]
 
-[ext_resource type="Material" uid="uid://ccredqp1kwg0h" path="res://nodes/explosion/explosion_material.tres" id="1_nhxak"]
+[ext_resource type="Material" uid="uid://dhgh3inlk1agj" path="res://nodes/explosion/explosion_material.tres" id="1_nhxak"]
 
 [sub_resource type="FogMaterial" id="FogMaterial_v2l3m"]
 

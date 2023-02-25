@@ -246,7 +246,7 @@ func _on_breakable_removed(location : Vector3):
 	s.global_position = location
 	add_child(s)
 	
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1.5).timeout
 	var r = randi_range(0, 100)
 	if r < 20:
 		var e = extra_bomb_pickable.instantiate()

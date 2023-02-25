@@ -4,7 +4,7 @@ extends CharacterBody3D
 #@onready var camera = $Target/Camera3D
 @onready var start_position = position
 @export var current_bomb_size := 1
-@export var bomb_time_seconds := 2.0
+@export var bomb_time_seconds := 1.5
 @export var bombs := 1
 
 @export var move_right_action := "move_right"
