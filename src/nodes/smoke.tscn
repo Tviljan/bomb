@@ -1,47 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c14h8ysmjmrte"]
+[gd_scene load_steps=2 format=3 uid="uid://buq1h8elpba53"]
 
-[ext_resource type="Shader" path="res://nodes/smoke.gdshader" id="1_2nwjs"]
 [ext_resource type="Script" path="res://nodes/smoke.gd" id="1_dtlwl"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cwxjq"]
-emission_shape = 1
-emission_sphere_radius = 1.46
-direction = Vector3(1, 1, 0)
-spread = 30.91
-gravity = Vector3(0, 5.8, 0)
-initial_velocity_min = 1.0
-initial_velocity_max = 1.0
-scale_min = 0.1
-scale_max = 0.25
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8jc4g"]
-render_priority = 0
-shader = ExtResource("1_2nwjs")
-shader_parameter/scale = 1.0
-shader_parameter/tex_speed = Vector3(0, -2.2, 0.5)
-shader_parameter/mokomoko = Vector2(0.1, 0.1)
-shader_parameter/smoke_volume = 0.8
-shader_parameter/smoke_aperture = 0.28
-shader_parameter/smoke_color = Color(0.185, 0.185, 0.185, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_sqvu1"]
-material = SubResource("ShaderMaterial_8jc4g")
-
-[sub_resource type="Skin" id="Skin_tmdns"]
-bind_count = 1
-bind/0/name = &""
-bind/0/bone = -1
-bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="smoke" type="Node3D"]
 script = ExtResource("1_dtlwl")
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-emitting = false
-amount = 52
-lifetime = 0.92
-one_shot = true
-explosiveness = 0.72
-process_material = SubResource("ParticleProcessMaterial_cwxjq")
-draw_pass_1 = SubResource("SphereMesh_sqvu1")
-draw_skin = SubResource("Skin_tmdns")

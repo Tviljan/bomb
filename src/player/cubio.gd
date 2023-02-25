@@ -4,12 +4,16 @@ extends CharacterBody3D
 #@onready var camera = $Target/Camera3D
 @onready var start_position = position
 @export var current_bomb_size := 1
+@export var bomb_time_seconds := 2.0
+@export var bombs := 1
 
 var moveSpeed := 100.0
 signal drop_bomb
 
 var dir : Vector3 = Vector3.ZERO
 var angle : float
+
+var active_bombs = 0
 func _physics_process(delta:float) -> void:
 	rotation_degrees = Vector3.UP
 	
@@ -33,14 +37,18 @@ func _physics_process(delta:float) -> void:
 	
 	# move the character
 	move_and_slide()
-	if Input.is_action_just_released("jump"):
+	if Input.is_action_just_released("jump") and active_bombs < bombs:
+		active_bombs += 1
+		get_tree().create_timer(bomb_time_seconds).timeout.connect(bomb_explode_timer)
 		drop_bomb.emit(self)
 		
 	#rotate
 	var rotation = velocity.normalized()
 #	print (global_position)
 	look_at(rotation * 90)
-
+func bomb_explode_timer():
+	active_bombs -= 1
+	
 func remove():
 	print ("I died")
 	queue_free()

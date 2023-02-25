@@ -5,7 +5,8 @@ extends Node3D
 
 @onready var gridmap : GridMap = $GridMap
 @onready var explosion = preload("res://nodes/explosion/explosion.tscn")
-@onready var random_object = preload("res://nodes/pickable/bigger_explosion.tscn")
+@onready var bigger_explosion_pickable = preload("res://nodes/pickable/bigger_explosion.tscn")
+@onready var extra_bomb_pickable = preload("res://nodes/pickable/extra_bomb.tscn")
 @onready var breakable = preload("res://nodes/bricks/breakable.tscn")
 
 @onready var smoke = preload("res://nodes/smoke.tscn")
@@ -155,8 +156,12 @@ func _on_breakable_removed(location : Vector3):
 	
 	await get_tree().create_timer(2).timeout
 	var r = randi_range(0, 100)
-	if r < 40:
-		var e = random_object.instantiate()
+	if r < 20:
+		var e = extra_bomb_pickable.instantiate()
+		e.global_position = location
+		add_child(e)
+	elif r < 40:
+		var e = bigger_explosion_pickable.instantiate()
 		e.global_position = location
 		add_child(e)
 
@@ -172,9 +177,9 @@ func _on_player_drop_bomb(player : CharacterBody3D):
 		var hovered_tile = gridmap.get_cell_item(hovered_point)
 		var instance = bomb.instantiate()
 		instance.explosion_size = player.current_bomb_size
+		instance.bomb_timer = player.bomb_time_seconds
 		instance.connect("on_explode", _on_bomb_explode)
 		instance.global_position = Vector3(hovered_point.x + 0.5, hovered_point.y, hovered_point.z + 0.5)
 
 		player.add_collision_exception_with(instance)
 		add_child(instance)
-	
