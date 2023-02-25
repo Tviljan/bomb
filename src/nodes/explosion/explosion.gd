@@ -61,10 +61,11 @@ func draw_explosion_cube(collision: Vector3)-> void:
 	var direction = collision - from
 	var multiplier = 1
 	var origin = Vector3.ZERO
-	var cube_width = .5
-	var cube_height = .5
+	var cube_width = 1
+	var cube_height = 1
 	var key = -1
 	var addition = 0
+	
 	if direction.x > 0:
 		direction.x += addition
 		cube_size = Vector3(direction.x, cube_height, cube_width)
