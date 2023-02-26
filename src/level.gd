@@ -26,6 +26,30 @@ func _process(delta: float) -> void:
 # map from player integer to the player node
 var player_nodes = {}
 
+var player_colors = [
+	Color(1.0, 0.0, 0.0),  # red
+	Color(1.0, 1.0, 0.0),  # yellow
+	Color(0.0, 1.0, 0.0),  # green
+	Color(0.0, 1.0, 1.0),  # cyan
+	Color(0.0, 0.0, 1.0),  # blue
+	Color(1.0, 0.0, 1.0),  # magenta
+	Color(0.5, 0.0, 0.5),  # purple
+	Color(0.5, 0.5, 0.0),  # olive
+	Color(0.5, 0.25, 0.0)  # brown
+]
+
+var player_start_location = [
+	Vector3(1,1.5,1), 
+	Vector3(1, 1.5, 6),  
+	Vector3(1, 1.5, 11), 
+	Vector3(14, 1.5, 1), 
+	Vector3(14, 1.5, 6),  
+	Vector3(14, 1.5, 11),  
+	Vector3(7, 1.5, 1), 
+	Vector3(7, 1.5, 6), 
+	Vector3(7, 1.5, 11) 
+]
+
 func _ready():
 	player_manager.player_joined.connect(spawn_player)
 	player_manager.player_left.connect(delete_player)
@@ -50,91 +74,43 @@ func _ready():
 
 
 func add_starting_position():
-	#left top player 1
-	gridmap.set_cell_item(Vector3(1,1,0),3)	
+	# define the starting places
+	var positions = [
+		# left column
+		Vector3(1, 1, 0), Vector3(0, 1, 1), Vector3(1, 1, 1),
+		Vector3(2, 1, 1), Vector3(1, 1, 2),
+
+		Vector3(1, 1, 5), Vector3(0, 1, 6), Vector3(1, 1, 6),
+		Vector3(2, 1, 6), Vector3(1, 1, 7),
+
+		Vector3(1, 1, 10), Vector3(0, 1, 11), Vector3(1, 1, 11),
+		Vector3(2, 1, 11), Vector3(1, 1, 12),
+
+		# right column
+		Vector3(14, 1, 0), Vector3(13, 1, 1), Vector3(14, 1, 1),
+		Vector3(15, 1, 1), Vector3(14, 1, 2),
+
+		Vector3(14, 1, 5), Vector3(13, 1, 6), Vector3(14, 1, 6),
+		Vector3(15, 1, 6), Vector3(14, 1, 7),
+
+		Vector3(14, 1, 10), Vector3(13, 1, 11), Vector3(14, 1, 11),
+		Vector3(15, 1, 11), Vector3(14, 1, 12),
+
+		# center column
+		Vector3(7, 1, 0), Vector3(6, 1, 1), Vector3(7, 1, 1),
+		Vector3(8, 1, 1), Vector3(7, 1, 2),
+
+		Vector3(7, 1, 5), Vector3(6, 1, 6), Vector3(7, 1, 6),
+		Vector3(8, 1, 6), Vector3(7, 1, 7),
+
+		Vector3(7, 1, 10), Vector3(6, 1, 11), Vector3(7, 1, 11),
+		Vector3(8, 1, 11), Vector3(7, 1, 12)
+	]
 	
-	gridmap.set_cell_item(Vector3(0,1,1),3)
-	gridmap.set_cell_item(Vector3(1,1,1),3)
-	gridmap.set_cell_item(Vector3(2,1,1),3)	
-	
-	gridmap.set_cell_item(Vector3(1,1,2),3)
-	
-	
-	#left center player 2
-	gridmap.set_cell_item(Vector3(1,1,5),3)	
-	
-	gridmap.set_cell_item(Vector3(0,1,6),3)
-	gridmap.set_cell_item(Vector3(1,1,6),3)
-	gridmap.set_cell_item(Vector3(2,1,6),3)	
-	
-	gridmap.set_cell_item(Vector3(1,1,7),3)
-	
-	#left bottom player 3
-	gridmap.set_cell_item(Vector3(1,1,10),3)	
-	
-	gridmap.set_cell_item(Vector3(0,1,11),3)
-	gridmap.set_cell_item(Vector3(1,1,11),3)
-	gridmap.set_cell_item(Vector3(2,1,11),3)	
-	
-	gridmap.set_cell_item(Vector3(1,1,12),3)
-	
-	#right top player 4
-	gridmap.set_cell_item(Vector3(14,1,0),3)	
-	
-	gridmap.set_cell_item(Vector3(13,1,1),3)	
-	gridmap.set_cell_item(Vector3(14,1,1),3)
-	gridmap.set_cell_item(Vector3(15,1,1),3)
-	
-	gridmap.set_cell_item(Vector3(14,1,2),3)
-	
-	#right center player 5
-	gridmap.set_cell_item(Vector3(14,1,5),3)	
-	
-	gridmap.set_cell_item(Vector3(13,1,6),3)	
-	gridmap.set_cell_item(Vector3(14,1,6),3)
-	gridmap.set_cell_item(Vector3(15,1,6),3)
-	
-	gridmap.set_cell_item(Vector3(14,1,7),3)
-	
-	
-	#right bottom player 6
-	gridmap.set_cell_item(Vector3(14,1,10),3)	
-	
-	gridmap.set_cell_item(Vector3(13,1,11),3)	
-	gridmap.set_cell_item(Vector3(14,1,11),3)
-	gridmap.set_cell_item(Vector3(15,1,11),3)
-	
-	gridmap.set_cell_item(Vector3(14,1,12),3)
-	
-	###
-	#center top player 7
-	gridmap.set_cell_item(Vector3(7,1,0),3)	
-	
-	gridmap.set_cell_item(Vector3(6,1,1),3)
-	gridmap.set_cell_item(Vector3(7,1,1),3)
-	gridmap.set_cell_item(Vector3(8,1,1),3)	
-	
-	gridmap.set_cell_item(Vector3(7,1,2),3)
-	
-	
-	#center center player 8
-	gridmap.set_cell_item(Vector3(7,1,5),3)	
-	
-	gridmap.set_cell_item(Vector3(6,1,6),3)
-	gridmap.set_cell_item(Vector3(7,1,6),3)
-	gridmap.set_cell_item(Vector3(8,1,6),3)	
-	
-	gridmap.set_cell_item(Vector3(7,1,7),3)
-	
-	#center bottom  9
-	gridmap.set_cell_item(Vector3(7,1,10),3)	
-	
-	gridmap.set_cell_item(Vector3(6,1,11),3)
-	gridmap.set_cell_item(Vector3(7,1,11),3)
-	gridmap.set_cell_item(Vector3(8,1,11),3)	
-	
-	gridmap.set_cell_item(Vector3(7,1,12),3)
-	
+	# set the cell items for each player
+	for pos in positions:
+		gridmap.set_cell_item(pos, 3)	
+		
 func spawn_player(player_num: int):
 	#var player_scene = load("res://demo/demo_player.tscn")
 	#var player_node = player_scene.instantiate()
@@ -143,9 +119,8 @@ func spawn_player(player_num: int):
 	var player_scene = load("res://player/cubio.tscn") #player_scene.instantiate() as CharacterBody3D
 	var player_node = player_scene.instantiate()
 	
-	player_node.global_position = Vector3(1,1.5,1)
-#	player.rotate_x(1)
-#
+	player_node.global_position = player_start_location[player_num]
+	player_node.color = player_colors[player_num]
 	player_node.scale = Vector3(.7, .7, .7) 
 	player_node.rotation = Vector3.UP
 	player_node.connect("drop_bomb", _on_player_drop_bomb)
@@ -270,6 +245,7 @@ func _on_player_drop_bomb(player : CharacterBody3D):
 		var instance = bomb.instantiate()
 		instance.explosion_size = player.current_bomb_size
 		instance.bomb_timer = player.bomb_time_seconds
+		instance.color = player.color
 		instance.connect("on_explode", _on_bomb_explode)
 		instance.global_position = Vector3(hovered_point.x + 0.5, hovered_point.y, hovered_point.z + 0.5)
 

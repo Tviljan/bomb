@@ -4,8 +4,13 @@ signal on_explode
 
 @export var explosion_size : int = 3
 @export var bomb_timer : float = 2.0
+@export var color = Color.WHITE
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var newMaterial = StandardMaterial3D.new()
+	newMaterial.albedo_color = color
+	$Sphere.material_override = newMaterial
 	$Timer.wait_time = bomb_timer
 	$Timer.connect("timeout", _explode)
 	var tween = create_tween()

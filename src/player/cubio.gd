@@ -12,7 +12,7 @@ extends CharacterBody3D
 @export var move_forward_action := "move_forward"
 @export var move_back_action := "move_back"
 @export var drop_bomb_action := "jump"
-
+@export var color = Color.WHITE
 var moveSpeed := 100.0
 signal drop_bomb
 
@@ -25,7 +25,12 @@ var angle : float
 # call this function when spawning this player to set up the input object based on the device
 func init(player_num: int, device: int):
 	player = player_num
-	
+	# Get the MeshInstance3D node
+	var newMaterial = StandardMaterial3D.new()
+	newMaterial.albedo_color = color
+	$Face.material_override = newMaterial
+	$Body.material_override = newMaterial
+
 	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
 	# but for simplicity, it's not an autoload in this demo.
 	# but I recommend making it a singleton so you can access the player data from anywhere.

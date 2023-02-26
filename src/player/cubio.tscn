@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbvuesb1ptdh4"]
+[gd_scene load_steps=8 format=3 uid="uid://cbvuesb1ptdh4"]
 
 [ext_resource type="Script" path="res://player/cubio.gd" id="1"]
 
@@ -7,7 +7,10 @@
 [sub_resource type="BoxMesh" id="BoxMesh_o6ph0"]
 material = SubResource("StandardMaterial3D_ylsdh")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tgrng"]
+
 [sub_resource type="CapsuleMesh" id="6"]
+material = SubResource("StandardMaterial3D_tgrng")
 height = 1.7
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vn0tg"]
