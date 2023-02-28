@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdyr2ghid0eg6"]
+[gd_scene load_steps=6 format=3 uid="uid://bdyr2ghid0eg6"]
 
 [ext_resource type="Script" path="res://nodes/bomb/bomb.gd" id="1_t4863"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mrkb4"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_renas"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5tabo"]
+material = SubResource("StandardMaterial3D_renas")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="Gradient" id="Gradient_8jkur"]
+
 [node name="Bomb" type="StaticBody3D"]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+transform = Transform3D(0.696303, 0, 0, 0, 0.696303, 0, 0, 0, 0.696303, 0, 0, 0)
 collision_layer = 33
 script = ExtResource("1_t4863")
 
@@ -27,6 +37,18 @@ autostart = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.442827, 0)
 shape = SubResource("SphereShape3D_mrkb4")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.44838, 0, 0, 0, 1, 0.104367, 0.88239, -0.00129738)
+amount = 11
+lifetime = 0.19
+mesh = SubResource("SphereMesh_5tabo")
+direction = Vector3(0, 1, 0)
+gravity = Vector3(1, 9.8, 1)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+color = Color(1, 1, 0, 1)
+color_ramp = SubResource("Gradient_8jkur")
 
 [connection signal="body_shape_exited" from="Area3D" to="." method="_on_area_3d_body_shape_exited"]
 [connection signal="child_exiting_tree" from="Area3D/CollisionShape3D" to="." method="_on_collision_shape_3d_child_exiting_tree"]

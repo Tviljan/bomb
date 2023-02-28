@@ -17,7 +17,10 @@ var hit_location_right = 1
 var hit_location_forward = 2
 var hit_location_back = 3
 
-@onready var explosion_material = preload("res://nodes/explosion/explosion_material.tres")
+@export var explosion_color = Color.YELLOW
+
+@onready var explosion_material = preload("res://nodes/explosion/explosion_material2.tres")
+@onready var scroller_shader = preload("res://nodes/explosion/scroller.gdshader")
 @export var explosion_size :int = 2
 
 ##Function for setting the cast length
@@ -93,10 +96,15 @@ func draw_explosion_cube(collision: Vector3)-> void:
 		
 		origin = Vector3(0, 0, direction.z /2) 
 		key = hit_location_back
-	
-	# Set the material of the explosion box
+		
+	# Create a new ShaderMaterial instance
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = scroller_shader
+	shader_material.set_shader_parameter("shine_color",explosion_color)
+	explosion_material.next_pass = shader_material
 	mesh_instance.material_override = explosion_material
-	cube.size = cube_size
+	
+	cube.size = cube_size	
 	mesh_instance.mesh = cube
 	hit_box[key] = cube_size
 	hit_origin[key] = origin
@@ -158,8 +166,6 @@ func destroy_cast(origin : Vector3, box_size: Vector3, direction : Vector3):
 			Debugger.draw_line_3d(object["collider"].global_position, object["collider"].global_position + Vector3.UP * 5, Color(1,0,1))
 			var o = object["collider"].get_owner()
 			if o:
-		
-				
 				o.remove()
 			else:
 				object["collider"].remove()

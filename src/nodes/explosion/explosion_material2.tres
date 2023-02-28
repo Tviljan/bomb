@@ -1,0 +1,26 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://bvbvu5rwsxjrg"]
+
+[ext_resource type="Shader" path="res://nodes/explosion/scroller.gdshader" id="1_oqm8x"]
+
+[sub_resource type="Gradient" id="Gradient_l4kcx"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_23shx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ynmcy"]
+color_ramp = SubResource("Gradient_l4kcx")
+noise = SubResource("FastNoiseLite_23shx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hwx8d"]
+render_priority = 0
+shader = ExtResource("1_oqm8x")
+shader_parameter/shine_color = Color(1, 1, 0.0823529, 1)
+shader_parameter/cycle_interval = 2.542
+shader_parameter/shine_speed = 4.075
+shader_parameter/shine_width = 46.803
+shader_parameter/shine_direction = Vector3(0, 0, 1)
+
+[resource]
+next_pass = SubResource("ShaderMaterial_hwx8d")
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_ynmcy")

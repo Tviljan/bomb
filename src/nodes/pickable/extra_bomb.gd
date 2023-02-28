@@ -2,6 +2,7 @@ extends Node3D
 @onready var circle = $CSGTorus3D
 @onready var plus : CSGCombiner3D = $CSGCombiner3D
 # Called when the node enters the scene tree for the first time.
+
 func _ready(): # Replace with function body.
 	var tween = create_tween()
 	self.scale = Vector3.ZERO

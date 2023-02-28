@@ -54,3 +54,5 @@ min_value = 73.0
 max_value = 78.0
 duration = 0.2
 fall_off = SubResource("Curve_cpqiw")
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]

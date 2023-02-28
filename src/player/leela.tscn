@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://by37i0brr8d6p"]
+
+[ext_resource type="PackedScene" uid="uid://che8hwrk52y1t" path="res://player/Leela.gltf" id="1_rt43u"]
+
+[node name="Leela" instance=ExtResource("1_rt43u")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="RobotArmature" index="0"]
+bones/0/position = Vector3(0.0247332, 2.31163, 0.924212)
+bones/0/rotation = Quaternion(-0.161193, 0.113911, 0.0187336, 0.980148)
+bones/2/rotation = Quaternion(-0.0186598, 0.000400369, 0.00117994, 0.999825)
+bones/3/rotation = Quaternion(0.129111, 0.170239, -0.0200583, 0.976702)
+bones/4/rotation = Quaternion(0.0963943, -0.00113776, 0.00244915, 0.99534)
+bones/5/rotation = Quaternion(0.930051, 0.0461753, 0.0476888, 0.361385)
+bones/6/rotation = Quaternion(0.899632, -1.88979e-07, 4.26138e-07, 0.436649)
+bones/7/rotation = Quaternion(-2.35986e-07, 0.442806, -0.896618, 1.31107e-07)
+bones/9/rotation = Quaternion(0.966427, -0.0453058, -0.0369561, 0.250202)
+bones/10/rotation = Quaternion(0.928416, 1.74497e-07, -4.42273e-07, 0.371543)
+bones/11/rotation = Quaternion(-2.44442e-07, -0.37606, 0.926595, 1.25792e-07)
+bones/15/position = Vector3(1.28189, 0.0953062, 0.857814)
+bones/15/rotation = Quaternion(0.237331, 0.666089, 0.666089, -0.237331)
+bones/16/position = Vector3(-1.23646, 0.0953062, 0.857814)
+bones/16/rotation = Quaternion(-0.0653595, 0.70408, 0.70408, 0.0653595)

@@ -51,6 +51,8 @@ var player_start_location = [
 ]
 
 func _ready():
+	
+	$ResourcePreloader.add_resource("player", load("res://player/cubio.tscn")) 
 	player_manager.player_joined.connect(spawn_player)
 	player_manager.player_left.connect(delete_player)
 
@@ -116,7 +118,7 @@ func spawn_player(player_num: int):
 	#var player_node = player_scene.instantiate()
 
 	# create the player node	
-	var player_scene = load("res://player/cubio.tscn") #player_scene.instantiate() as CharacterBody3D
+	var player_scene = $ResourcePreloader.get_resource("player") #player_scene.instantiate() as CharacterBody3D
 	var player_node = player_scene.instantiate()
 	
 	player_node.global_position = player_start_location[player_num]
@@ -206,9 +208,10 @@ func add_preset_breakables():
 		b.global_position =i + _tile_offset
 		add_child(b)
 			
-func _on_bomb_explode(bomb_location : Vector3, bomb_size : int):
+func _on_bomb_explode(bomb_location : Vector3, bomb_size : int, bomb_color :Color):
 	var e = explosion.instantiate()
 	e.explosion_size = bomb_size
+	e.explosion_color = bomb_color
 	e.global_position = bomb_location + Vector3.UP * .5
 	var tween = create_tween()
 	add_child(e)
