@@ -14,14 +14,15 @@ extends Node3D
 @onready var shaker = $Shaker
 @onready var camera : Camera3D = $Camera3D
 
+var player_script = load("res://player/player.gd" )	
+var ai_script = load("res://player/ai.gd" )	
+
 var grid_width = 16
 var grid_height = 13
 
 var _tile_offset = Vector3(.5,0,.5)
 func _process(delta: float) -> void:
-	player_manager.handle_join_input()
-	
-@onready var player_manager = $PlayerManager
+	PlayerManager.handle_join_input()
 
 # map from player integer to the player node
 var player_nodes = {}
@@ -39,22 +40,23 @@ var player_colors = [
 ]
 
 var player_start_location = [
-	Vector3(1,1.5,1), 
-	Vector3(1, 1.5, 6),  
-	Vector3(1, 1.5, 11), 
-	Vector3(14, 1.5, 1), 
-	Vector3(14, 1.5, 6),  
-	Vector3(14, 1.5, 11),  
-	Vector3(7, 1.5, 1), 
-	Vector3(7, 1.5, 6), 
-	Vector3(7, 1.5, 11) 
+	Vector3(1.5,1.5,1.5), 
+	Vector3(1.5, 1.5, 6.5),  
+	Vector3(1.5, 1.5, 11.5), 
+	Vector3(14.5, 1.5, 1.5), 
+	Vector3(14.5, 1.5, 6.5),  
+	Vector3(14.5, 1.5, 11.5),  
+	Vector3(7.5, 1.5, 1.5), 
+	Vector3(7.5, 1.5, 6.5), 
+	Vector3(7.5, 1.5, 11.5) 
 ]
 
+var players_loaded = false
 func _ready():
 	
-	$ResourcePreloader.add_resource("player", load("res://player/cubio.tscn")) 
-	player_manager.player_joined.connect(spawn_player)
-	player_manager.player_left.connect(delete_player)
+	$ResourcePreloader.add_resource("player", preload("res://player/cubio.tscn")) 
+	PlayerManager.player_joined.connect(spawn_player)
+	PlayerManager.player_left.connect(delete_player)
 
 	#Ground
 	for x in range(0,grid_width):
@@ -69,10 +71,19 @@ func _ready():
 	for x in range(0,grid_width):
 		gridmap.set_cell_item(Vector3(x,1,-1),0)
 		gridmap.set_cell_item(Vector3(x,1,grid_height),0)
+
+	for i in PlayerManager.player_data.keys():
+		spawn_player(i)
+		
+	for ai in PlayerManager.ai_players:
+		spawn_ai(ai + PlayerManager.player_data.size())
 	
+	players_loaded = true
+			
 	add_starting_position()
 	add_unbreakables()
 	add_breakables()
+	
 
 
 func add_starting_position():
@@ -116,11 +127,13 @@ func add_starting_position():
 func spawn_player(player_num: int):
 	#var player_scene = load("res://demo/demo_player.tscn")
 	#var player_node = player_scene.instantiate()
-
+	
+	if (players_loaded):
+		player_num = player_num + PlayerManager.ai_players
 	# create the player node	
 	var player_scene = $ResourcePreloader.get_resource("player") #player_scene.instantiate() as CharacterBody3D
 	var player_node = player_scene.instantiate()
-	
+	player_node.set_script(player_script)
 	player_node.global_position = player_start_location[player_num]
 	player_node.color = player_colors[player_num]
 	player_node.scale = Vector3(.7, .7, .7) 
@@ -132,13 +145,27 @@ func spawn_player(player_num: int):
 	player_nodes[player_num] = player_node
 	
 	# let the player know which device controls it
-	var device = player_manager.get_player_device(player_num)
+	var device = PlayerManager.get_player_device(player_num)
 	player_node.init(player_num, device)
 	
 	# add the player to the tree
 	add_child(player_node)
 	
 
+func spawn_ai(ai_num : int):
+	# create the player node	
+	var player_scene = $ResourcePreloader.get_resource("player") #player_scene.instantiate() as CharacterBody3D
+	var player_node = player_scene.instantiate()
+	player_node.set_script(ai_script)
+	player_node.global_position = player_start_location[ai_num]
+	player_node.color = player_colors[ai_num]
+	player_node.scale = Vector3(.7, .7, .7) 
+	player_node.rotation = Vector3.UP
+	player_nodes[ai_num] = player_node
+	
+	# add the player to the tree
+	add_child(player_node)
+	
 func delete_player(player: int):
 	player_nodes[player].queue_free()
 	player_nodes.erase(player)
@@ -147,7 +174,7 @@ func on_player_leave(player: int):
 	# just let the player manager know this player is leaving
 	# this will, through the player manager's "player_left" signal,
 	# indirectly call delete_player because it's connected in this file's _ready()
-	player_manager.leave(player)
+	PlayerManager.leave(player)
 				
 func add_unbreakables():
 	
@@ -215,9 +242,9 @@ func _on_bomb_explode(bomb_location : Vector3, bomb_size : int, bomb_color :Colo
 	e.global_position = bomb_location + Vector3.UP * .5
 	var tween = create_tween()
 	add_child(e)
-	tween.tween_property($Camera3D, "fov", 77, 0.01).from_current()
-	tween.tween_property($Camera3D, "fov", 74, 0.01).from_current()
-	tween.tween_property($Camera3D, "fov", 75, 0.01).from_current()
+	tween.tween_property($Camera3D, "fov", 77, 0.04).from_current()
+	tween.tween_property($Camera3D, "fov", 74, 0.04).from_current()
+	tween.tween_property($Camera3D, "fov", 75, 0.04).from_current()
 	
 func _on_breakable_removed(location : Vector3):
 	var s = smoke.instantiate()

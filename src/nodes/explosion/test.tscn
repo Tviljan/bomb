@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://f7j3p5vm2owv"]
+
+[ext_resource type="Shader" path="res://nodes/explosion/scroller.gdshader" id="1_u42sa"]
+
+[sub_resource type="Gradient" id="Gradient_l4kcx"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_23shx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ynmcy"]
+color_ramp = SubResource("Gradient_l4kcx")
+noise = SubResource("FastNoiseLite_23shx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hwx8d"]
+render_priority = 0
+shader = ExtResource("1_u42sa")
+shader_parameter/shine_color = Color(1, 1, 0.0823529, 1)
+shader_parameter/cycle_interval = 5.0
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_width = 11.31
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gck6y"]
+next_pass = SubResource("ShaderMaterial_hwx8d")
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_ynmcy")
+
+[node name="test" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material = SubResource("StandardMaterial3D_gck6y")

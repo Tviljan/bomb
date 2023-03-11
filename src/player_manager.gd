@@ -11,7 +11,7 @@ signal player_left(player)
 # the existence of a key in this dictionary means this player is joined.
 # use get_player_data() and set_player_data() to use this dictionary.
 var player_data: Dictionary = {}
-
+var ai_players = 0
 const MAX_PLAYERS = 8
 
 func join(device: int):

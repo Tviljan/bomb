@@ -18,7 +18,6 @@ shader_parameter/shine_color = Color(1, 1, 0.0823529, 1)
 shader_parameter/cycle_interval = 2.542
 shader_parameter/shine_speed = 4.075
 shader_parameter/shine_width = 46.803
-shader_parameter/shine_direction = Vector3(0, 0, 1)
 
 [resource]
 next_pass = SubResource("ShaderMaterial_hwx8d")
