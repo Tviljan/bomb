@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://y0rsox5qdoci"]
 
 [ext_resource type="Environment" uid="uid://bupmwdx23k178" path="res://default_env.tres" id="3_scanf"]
-[ext_resource type="MeshLibrary" uid="uid://ct4cdiw7exkpn" path="res://meshlib.meshlib" id="4_r1scj"]
+[ext_resource type="PackedScene" uid="uid://cw6n2dbbjbrmw" path="res://MapData.tscn" id="4_q3m47"]
 [ext_resource type="Script" path="res://addons/shaker/shaker.gd" id="5_yylxi"]
 [ext_resource type="Script" path="res://level.gd" id="6"]
 
@@ -28,14 +28,6 @@ directional_shadow_max_distance = 24.0
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.79539, 11.3778, 5.97098)
 
-[node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("4_r1scj")
-cell_size = Vector3(1, 1, 1)
-collision_layer = 145
-data = {
-"cells": PackedInt32Array(0, 0, 1, 1, 0, 1, 2, 0, 0, 1, 1, 0, 0, 1, 0, 65535, 0, 0, 0, 65535, 0, 0, 65534, 0, 1, 65534, 0, 1, 65535, 0)
-}
-
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
 [node name="PickableTimer" type="Timer" parent="."]
@@ -52,3 +44,5 @@ duration = 0.2
 fall_off = SubResource("Curve_cpqiw")
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+
+[node name="MapData" parent="." instance=ExtResource("4_q3m47")]

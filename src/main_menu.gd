@@ -19,6 +19,7 @@ func _ready():
 		input_string += input.as_text() + ""
 	Helper.text = input_string
 	preload("res://player/cubio.tscn")
+	
 
 func _player_count_changed() -> void:
 	

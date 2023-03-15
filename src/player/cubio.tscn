@@ -17,24 +17,27 @@ collision_mask = 193
 slide_on_ceiling = false
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+visible = false
 shape = SubResource("CylinderShape3D_vn0tg")
 target_position = Vector3(0, -0.61, 0)
 debug_shape_custom_color = Color(0.772549, 0, 0.772549, 1)
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.828029, 0)
+visible = false
 debug_shape_custom_color = Color(0.239216, 0.282353, 0.509804, 1)
 debug_shape_thickness = 5
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="PickupArea" type="Area3D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 64
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -0.182176, 0)
 shape = SubResource("5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BumbShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("5")
 
 [node name="Leela" parent="." instance=ExtResource("2_v4cd0")]
@@ -43,4 +46,4 @@ transform = Transform3D(0.322572, 0, 0, 0, 0.322572, 0, 0, 0, 0.322572, 0, -0.84
 [node name="Marker" type="CSGSphere3D" parent="."]
 transform = Transform3D(0.142262, 0, 0, 0, 0.142262, 0, 0, 0, 0.142262, 0, 1.00125, 0)
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="PickupArea" to="." method="_on_area_3d_area_entered"]
